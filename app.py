@@ -17,8 +17,8 @@ uploaded_files = st.file_uploader('upload files', help='we do not store your fil
 
 st.write('or')
 
-# if uploaded_files:
-#     text_input_disabled = True
+if uploaded_files:
+    text_input_disabled = True
 
 url = st.text_input('paste an image link', disabled=text_input_disabled)
 
