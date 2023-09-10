@@ -21,5 +21,5 @@ roadmap:
 - [ ] multiples source langs
 - [x] image from url
 - [ ] browser extension with a context menu
-- [ ] style
+- [x] style
 - [ ] add more langs

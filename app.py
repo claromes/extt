@@ -7,6 +7,23 @@ import os
 from PIL import Image
 from googletrans import Translator
 
+st.set_page_config(
+    page_title='extt',
+    page_icon='📄',
+    layout='centered',
+    menu_items={
+
+        'About': '''
+         [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/claromes/extt?include_prereleases)](https://github.com/claromes/extt/releases) [![License](https://img.shields.io/github/license/claromes/extt)](https://github.com/claromes/extt/blob/main/LICENSE.md)
+
+        extt: extracting and translating text from image
+
+        -------
+        ''',
+        'Report a bug': 'https://github.com/claromes/extt/issues'
+    }
+)
+
 text_input_disabled = False
 
 st.title('extt', anchor=False)
