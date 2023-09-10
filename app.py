@@ -41,8 +41,8 @@ url = st.text_input('paste an image link', disabled=text_input_disabled)
 col1, col2 = st.columns(2)
 
 with col1:
-    from_lang = st.selectbox(
-        'from lang',
+    from_lang = st.multiselect(
+        'from langs',
         ('en', 'ru', 'pt', 'es', 'fr'))
 
 with col2:
@@ -58,9 +58,9 @@ with colbtn:
 st.divider()
 
 if button:
-    def translate(text, from_lang=from_lang, to_lang=to_lang):
+    def translate(text, to_lang=to_lang):
         translator = Translator()
-        translate = translator.translate((text), src=from_lang, dest=to_lang)
+        translate = translator.translate((text), dest=to_lang)
         return translate.text
 
     def show_result(source):
@@ -90,7 +90,7 @@ if button:
 
     temp_dir = tempfile.TemporaryDirectory()
 
-    reader = easyocr.Reader([from_lang])
+    reader = easyocr.Reader(from_lang)
 
     if url:
         result = reader.readtext(url, detail=0, paragraph=True)

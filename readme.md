@@ -18,7 +18,7 @@ Streamlit will be served at http://localhost:8501
 
 roadmap:
 
-- [ ] multiples source langs
+- [x] multiples source langs
 - [x] image from url
 - [ ] browser extension with a context menu
 - [x] style
