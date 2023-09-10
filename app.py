@@ -47,10 +47,21 @@ with col1:
         'from langs',
         (lang[0] for lang in langs))
 
+from_codes = []
+
+for lang_name in from_lang:
+    for lang in langs:
+        if lang_name in lang:
+            from_codes.append(lang[1])
+
 with col2:
     to_lang = st.selectbox(
         'to lang',
         (lang[0] for lang in langs))
+
+for lang in langs:
+    if to_lang == lang[0]:
+        to_code = lang[1]
 
 _, colbtn, _ = st.columns(3)
 
@@ -60,9 +71,9 @@ with colbtn:
 st.divider()
 
 if button:
-    def translate(text, to_lang=to_lang):
+    def translate(text, to_lang=to_code):
         translator = Translator()
-        translate = translator.translate((text), dest=to_lang)
+        translate = translator.translate((text), dest=to_code)
         return translate.text
 
     def show_result(source, caption):
@@ -89,7 +100,7 @@ if button:
 
     temp_dir = tempfile.TemporaryDirectory()
 
-    reader = easyocr.Reader(from_lang)
+    reader = easyocr.Reader(from_codes)
 
     if url:
         result = reader.readtext(url, detail=0, paragraph=True)
@@ -103,7 +114,7 @@ if button:
             image = Image.open(io.BytesIO(bytes_data))
 
             temp_image_path = os.path.join(temp_dir.name, uploaded_file.name)
-            image.save(source)
+            image.save(temp_image_path)
 
             result = reader.readtext(temp_image_path, detail=0, paragraph=True)
 

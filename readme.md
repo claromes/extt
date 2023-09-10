@@ -1,10 +1,8 @@
 # extt
 
-tool for extracting and translating text from image based in [EasyOCR OSS](https://github.com/JaidedAI/EasyOCR) and a [implementation of Google Translate API](https://github.com/ssut/py-googletrans).
+tool for extracting and translating text from image based in EasyOCR OSS and Google Translate API.
 
-[supported langs](https://raw.githubusercontent.com/claromes/extt/main/langs.py).
-
-just another streamlit app to testing possibilities.
+just another streamlit app for testing possibilities...
 
 dev:
 
