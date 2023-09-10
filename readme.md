@@ -22,3 +22,4 @@ roadmap:
 - [x] image from url
 - [ ] browser extension with a context menu
 - [ ] style
+- [ ] add more langs

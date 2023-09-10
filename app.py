@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
 import easyocr
 import io
 import tempfile
@@ -37,7 +36,7 @@ with col2:
 _, colbtn, _ = st.columns(3)
 
 with colbtn:
-    button = st.button('extract and translate', type='primary')
+    button = st.button('extract and translate', type='primary', use_container_width=True)
 
 st.divider()
 
