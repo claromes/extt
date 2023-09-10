@@ -7,6 +7,8 @@ import os
 from PIL import Image
 from googletrans import Translator
 
+from langs import langs
+
 st.set_page_config(
     page_title='extt',
     page_icon='📄',
@@ -43,12 +45,12 @@ col1, col2 = st.columns(2)
 with col1:
     from_lang = st.multiselect(
         'from langs',
-        ('en', 'ru', 'pt', 'es', 'fr'))
+        (lang[0] for lang in langs))
 
 with col2:
     to_lang = st.selectbox(
         'to lang',
-        ('en', 'ru', 'pt', 'es', 'fr'))
+        (lang[0] for lang in langs))
 
 _, colbtn, _ = st.columns(3)
 
