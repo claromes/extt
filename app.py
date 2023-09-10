@@ -17,8 +17,8 @@ uploaded_files = st.file_uploader('upload files', help='we do not store your fil
 
 st.write('or')
 
-if uploaded_files:
-    text_input_disabled = True
+# if uploaded_files:
+#     text_input_disabled = True
 
 url = st.text_input('paste an image link', disabled=text_input_disabled)
 
@@ -34,9 +34,12 @@ with col2:
         'to lang',
         ('en', 'ru', 'pt', 'es', 'fr'))
 
-_, colb, _ = st.columns(3)
-with colb:
+_, colbtn, _ = st.columns(3)
+
+with colbtn:
     button = st.button('extract and translate', type='primary')
+
+st.divider()
 
 if button:
     def translate(text, from_lang=from_lang, to_lang=to_lang):
@@ -45,9 +48,8 @@ if button:
         return translate.text
 
     def show_result(source):
-        st.divider()
-
-        colimg, coltext = st.columns(2)
+        _, colimg, _ = st.columns([1, 10, 1])
+        colsrc, coltrans = st.columns(2)
 
         with colimg:
             if source == 'url':
@@ -55,25 +57,27 @@ if button:
             if source == 'uploaded_files':
                 st.image(temp_image_path, caption=uploaded_file.name)
 
-        with coltext:
-            for (_, coord, _) in result:
-                try:
-                    st.write(f'''
-                    {coord}
+        with colsrc:
+            st.caption('source:')
+            for r in result:
+                st.write(r)
 
-                    **translation:** {translate(coord)}
-                    ''')
-                    st.divider()
-                except TypeError as e:
-                    st.error(f'error: Unable to translate "{coord}"')
-                    st.divider()
+        with coltrans:
+            st.caption('translation:')
+            for r in result:
+                try:
+                    st.write(translate(r))
+                except TypeError:
+                    st.write(f':red[error: unable to translate "{r}"]')
+
+        st.divider()
 
     temp_dir = tempfile.TemporaryDirectory()
 
     reader = easyocr.Reader([from_lang])
 
     if url:
-        result = reader.readtext(url)
+        result = reader.readtext(url, detail=0, paragraph=True)
 
         show_result('url')
 
@@ -86,6 +90,6 @@ if button:
             temp_image_path = os.path.join(temp_dir.name, uploaded_file.name)
             image.save(temp_image_path)
 
-            result = reader.readtext(temp_image_path)
+            result = reader.readtext(temp_image_path, detail=0, paragraph=True)
 
             show_result('uploaded_files')
