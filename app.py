@@ -63,15 +63,12 @@ if button:
         translate = translator.translate((text), dest=to_lang)
         return translate.text
 
-    def show_result(source):
+    def show_result(source, caption):
         _, colimg, _ = st.columns([1, 10, 1])
         colsrc, coltrans = st.columns(2)
 
         with colimg:
-            if source == 'url':
-                st.caption(url)
-            if source == 'uploaded_files':
-                st.image(temp_image_path, caption=uploaded_file.name)
+            st.image(source, caption=caption)
 
         with colsrc:
             st.caption('source:')
@@ -95,7 +92,7 @@ if button:
     if url:
         result = reader.readtext(url, detail=0, paragraph=True)
 
-        show_result('url')
+        show_result(url, url)
 
     if uploaded_files:
         for uploaded_file in uploaded_files:
@@ -104,8 +101,8 @@ if button:
             image = Image.open(io.BytesIO(bytes_data))
 
             temp_image_path = os.path.join(temp_dir.name, uploaded_file.name)
-            image.save(temp_image_path)
+            image.save(source)
 
             result = reader.readtext(temp_image_path, detail=0, paragraph=True)
 
-            show_result('uploaded_files')
+            show_result(temp_image_path, uploaded_file.name)
